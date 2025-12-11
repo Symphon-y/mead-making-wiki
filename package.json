@@ -1,0 +1,45 @@
+{
+  "name": "meadmaking-wiki",
+  "version": "1.0.0",
+  "description": "A Wiki.js instance hosting the meadmaking community knowledge base",
+  "scripts": {
+    "dev": "docker-compose up -d",
+    "dev:logs": "docker-compose logs -f",
+    "dev:stop": "docker-compose down",
+    "dev:clean": "docker-compose down -v && rm -rf pgdata/",
+    "prod:build": "docker-compose -f docker-compose.prod.yml build",
+    "prod:up": "docker-compose -f docker-compose.prod.yml --env-file .env.prod up -d",
+    "prod:logs": "docker-compose -f docker-compose.prod.yml logs -f",
+    "prod:stop": "docker-compose -f docker-compose.prod.yml down",
+    "deploy:render": "npm run prod:build && npm run prod:up",
+    "deploy:supabase": "npm run prod:build && npm run prod:up",
+    "setup:local": "cp .env.example .env && echo 'Created .env file - please edit with your settings'",
+    "setup:prod": "cp .env.prod.example .env.prod && echo 'Created .env.prod file - please edit with your remote database settings'",
+    "backup:content": "tar -czf backup-content-$(date +%Y%m%d-%H%M%S).tar.gz content/",
+    "backup:db": "docker-compose exec postgres pg_dump -U $npm_config_db_user $npm_config_db_name > backup-$(date +%Y%m%d-%H%M%S).sql",
+    "logs": "npm run dev:logs",
+    "start": "npm run dev",
+    "stop": "npm run dev:stop",
+    "clean": "npm run dev:clean"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/meadmaking-wiki.git"
+  },
+  "keywords": [
+    "wiki",
+    "mead",
+    "meadmaking",
+    "wiki.js",
+    "docker",
+    "documentation"
+  ],
+  "author": "Meadmaking Community",
+  "license": "CC-BY-NC-SA-4.0",
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
+  "devDependencies": {},
+  "dependencies": {}
+}
