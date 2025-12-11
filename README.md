@@ -106,20 +106,6 @@ rm -rf pgdata/
    docker-compose -f docker-compose.prod.yml --env-file .env.prod up -d
    ```
 
-### Deployment Options
-
-#### Supabase Database Limits (Free Tier)
-- **Database**: 500MB storage
-- **Bandwidth**: 5GB/month
-- **API requests**: 500K/month
-- **Real-time connections**: 200 concurrent
-- **Edge functions**: 500K executions/month
-
-#### Other Free Hosting Options
-- **Render**: 1GB PostgreSQL storage, Web Service hosting
-- **Railway**: Simple deployment with managed databases
-- **Fly.io**: Global deployment with managed databases
-
 ### Project Structure
 
 ```
