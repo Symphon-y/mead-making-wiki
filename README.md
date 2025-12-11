@@ -18,7 +18,7 @@ This wiki covers the basics of making mead and serves as a comprehensive resourc
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/your-username/meadmaking-wiki.git
+   git clone https://github.com/Symphon-y/mead-making-wiki.git
    cd meadmaking-wiki
    ```
 
