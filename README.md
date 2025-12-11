@@ -38,7 +38,11 @@ This wiki covers the basics of making mead and serves as a comprehensive resourc
 
 4. **Start the services**
    ```bash
+   # Using default docker-compose.yml (includes local PostgreSQL)
    docker-compose up -d
+   
+   # Or explicitly use the local configuration
+   docker-compose -f docker-compose.local.yml up -d
    ```
 
 5. **Access the wiki**
@@ -61,6 +65,61 @@ The wiki content is stored in the `/content` directory and can be imported using
    - **Read-only**: Enable if you don't want Wiki.js to modify source files
 3. Configure sync schedule in **Administration > Jobs**
 
+### Stopping the Services
+
+```bash
+docker-compose down
+```
+
+To remove all data (including database):
+```bash
+docker-compose down -v
+rm -rf pgdata/
+```
+
+## Production Deployment
+
+### Using Remote Database (Supabase, Render, etc.)
+
+1. **Set up your remote database**
+   - Create a PostgreSQL instance on your preferred provider (Supabase, Render, etc.)
+   - Note the connection details
+
+2. **Create production environment file**
+   ```bash
+   cp .env.prod.example .env.prod
+   ```
+
+3. **Configure production environment**
+   Edit `.env.prod` with your remote database details:
+   ```env
+   DB_HOST=your-database-host.supabase.co
+   DB_PORT=5432
+   DB_USER=postgres
+   DB_PASS=your_secure_password
+   DB_NAME=postgres
+   DB_SSL=true
+   ```
+
+4. **Deploy using production configuration**
+   ```bash
+   docker-compose -f docker-compose.prod.yml --env-file .env.prod up -d
+   ```
+
+### Deployment Options
+
+#### Supabase Database Limits (Free Tier)
+- **Database**: 500MB storage
+- **Bandwidth**: 5GB/month
+- **API requests**: 500K/month
+- **Real-time connections**: 200 concurrent
+- **Edge functions**: 500K executions/month
+
+#### Other Free Hosting Options
+- **Render**: 1GB PostgreSQL storage, Web Service hosting
+- **Railway**: Simple deployment with managed databases
+- **Fly.io**: Global deployment with managed databases
+
 ### Project Structure
 
 ```
@@ -75,21 +134,12 @@ The wiki content is stored in the `/content` directory and can be imported using
 │       ├── resources/ # Additional resources
 │       └── userrecipes/ # Community recipes
 ├── scripts/          # Migration and utility scripts
-├── docker-compose.yml # Docker services configuration
-├── .env.example      # Environment variables template
+├── docker-compose.yml # Local development (default)
+├── docker-compose.local.yml # Local with PostgreSQL
+├── docker-compose.prod.yml  # Production (remote DB)
+├── .env.example      # Local environment template
+├── .env.prod.example # Production environment template
 └── README.md         # This file
-```
-
-### Stopping the Services
-
-```bash
-docker-compose down
-```
-
-To remove all data (including database):
-```bash
-docker-compose down -v
-rm -rf pgdata/
 ```
 
 ## Contributing
@@ -102,18 +152,6 @@ Please read the [Wiki Editing Guidelines](content/en/wiki_editing_guidelines.md)
 - Remove punctuation from file names
 - Provide sources when possible
 - Follow the established content structure
-
-## Deployment
-
-### Free Hosting Options
-
-This wiki can be deployed on several free hosting platforms:
-
-- **Render**: Supports Docker deployments with free PostgreSQL
-- **Railway**: Simple deployment with one-click database setup
-- **Fly.io**: Global deployment with managed databases
-
-See the deployment documentation for platform-specific instructions.
 
 ## Support
 
