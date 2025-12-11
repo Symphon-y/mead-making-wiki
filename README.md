@@ -4,7 +4,7 @@ A modern Wiki.js instance hosting the meadmaking community knowledge base, migra
 
 ## About
 
-This wiki covers the basics of making mead and serves as a comprehensive resource for the meadmaking community. The content was migrated on December 11, 2025, and continues to be maintained and expanded by the community.
+This wiki covers the basics of making mead and serves as a comprehensive resource for the meadmaking community. The content was migrated on December 11, 2025.
 
 ## Local Development Setup
 
@@ -63,7 +63,6 @@ The wiki content is stored in the `/content` directory and can be imported using
    - **Path**: `/content`
    - **Apply To**: `pages`
    - **Read-only**: Enable if you don't want Wiki.js to modify source files
-3. Configure sync schedule in **Administration > Jobs**
 
 ### Stopping the Services
 
